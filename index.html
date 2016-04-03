@@ -99,16 +99,12 @@
 
       var Page = React.createClass({
         render: function() {
-          var posts = this.props.data.map(function(comment){
-            return (
-              <Post key={comment.id} author={comment.author} url={comment.url} title={comment.title}/>
-            );
-          });
           return (
             <div className="Page">
               <h1>Hacker News</h1>
               <ul className="media-list">
-              {posts}
+              <Post key="11416746" url="https://hacker-news.firebaseio.com/v0/item/11416746.json" />
+              <Post key="11417396" url="https://hacker-news.firebaseio.com/v0/item/11417396.json" />
               </ul>
             </div>
           );
@@ -116,17 +112,34 @@
       });
 
       var Post = React.createClass({
+        getInitialState: function() {
+          return {};
+        },
+        componentDidMount: function() {
+            $.ajax({
+              url: this.props.url,
+              dataType: 'json',
+              cache: false,
+              crossDomain: true,
+              success: function(data) {
+                this.setState(data);
+              }.bind(this),
+              error: function(xhr, status, err) {
+                console.error(this.props.url, status, err.toString());
+              }.bind(this)
+            });
+          },
         render: function() {
             return (
                 <li className="media">
                   <div className="media-left">
-                    <a href={this.props.url}>
+                    <a href={this.state.url}>
                       <img src="holder.js/100x100"/>
                     </a>
                   </div>
                   <div className="media-body">
-                    <h4 className="media-heading">{this.props.title}</h4>
-                      {this.props.author}
+                    <h4 className="media-heading">{this.state.title}</h4>
+                      {this.state.author}
                   </div>
                 </li>
             );
