@@ -25,18 +25,43 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <!-- React stuffs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.8/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.8/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.min.js"></script>
+
   </head>
   <body>
     <h1>Hello, world!</h1>
-    <div class="media">
-      <div class="media-left">
-        <a href="#">
-        </a>
-      </div>
-      <div class="media-body">
-        <h4 class="media-heading">Media heading</h4>
-          ...
-      </div>
-    </div>
+
+    <div id="content"></div>
+
+    <script type="text/babel">
+      var Post = React.createClass({
+        render: function() {
+            return (
+              <div className="media">
+                <div className="media-left">
+                  <a href="#">
+                    <img src="holder.js/100x100"/>
+                  </a>
+                </div>
+                <div className="media-body">
+                  <h4 className="media-heading">Media heading</h4>
+                    ...
+                </div>
+              </div>
+            );
+        }
+      });
+      ReactDOM.render(
+        <Post />,
+        document.getElementById('content')
+      );
+    </script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.9.3/holder.min.js"></script>
   </body>
 </html>
