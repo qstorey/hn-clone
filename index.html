@@ -76,7 +76,7 @@
 
       var Post = React.createClass({
         getInitialState: function() {
-          return {data: []};
+          return {data: {}};
         },
         componentDidMount: function() {
             var post_url = `https://hacker-news.firebaseio.com/v0/item/${this.props.id}.json`;
@@ -98,7 +98,7 @@
                 <li className="media">
                   <div className="media-left">
                     <a href={this.state.data.url}>
-                      <img data-src="holder.js/100x100"/>
+                      <img src="http://lorempixel.com/100/100/abstract"/>
                     </a>
                   </div>
                   <div className="media-body">
@@ -115,6 +115,5 @@
       );
     </script>
 
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.9.3/holder.min.js"></script>
   </body>
 </html>
