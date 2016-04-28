@@ -47,7 +47,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Hacker News Clone</a>
+          <a class="navbar-brand" href="#">Author</a>
         </div>
       </div>
     </nav>
@@ -58,9 +58,16 @@
 
     <script type="text/babel">
 
+		var getQueryString = function ( field, url ) {
+		    var href = url ? url : window.location.href;
+		    var reg = new RegExp( '[?&]' + field + '=([^&#]*)', 'i' );
+		    var string = reg.exec(href);
+		    return string ? string[1] : null;
+		};
+
       var Page = React.createClass({
         getInitialState: function() {
-          return {data: []};
+          return {data: {}};
         },
         componentDidMount: function() {
             $.ajax({
@@ -77,29 +84,22 @@
             });
           },
         render: function() {
-          var posts = this.state.data.map(function(post_id){
-            return (
-              <Post key={post_id} id={post_id} />
-            )
-          });
           return (
-            <div className="Page">
-              <ul className="media-list">
-                {posts.slice(0,10)}
-              </ul>
+            <div className="Page" class="container">
+            	<Author key={this.state.data.id} id={this.state.data.id} />
             </div>
           );
         }
       });
 
-      var Post = React.createClass({
+      var Author = React.createClass({
         getInitialState: function() {
           return {data: {}};
         },
         componentDidMount: function() {
-            var post_url = `https://hacker-news.firebaseio.com/v0/item/${this.props.id}.json`;
+            var author_url = `https://hacker-news.firebaseio.com/v0/user/${this.props.id}.json`;
             $.ajax({
-              url: post_url,
+              url: author_url,
               dataType: 'json',
               cache: false,
               crossDomain: true,
@@ -107,31 +107,37 @@
                 this.setState({data: data});
               }.bind(this),
               error: function(xhr, status, err) {
-                console.error(this.props.data.post_url, status, err.toString());
+                console.error(this.props.data.author_url, status, err.toString());
               }.bind(this)
             });
           },
         render: function() {
-            var author_url = `author.html?id=${this.state.data.by}`;
             return (
-                <li className="media">
-                  <div className="media-left">
-                    <a href={this.state.data.url}>
-                      <img src="http://lorempixel.com/100/100/abstract"/>
-                    </a>
-                  </div>
-                  <div className="media-body">
-                    <a href={this.state.data.url}><h4 className="media-heading">{this.state.data.title}</h4></a>
-                      <a href={author_url}>{this.state.data.by}</a>
-                  </div>
-                </li>
+              <div class="container">
+              	<div class="row">
+              		User:    {this.state.data.id}
+              	</div>
+              	<div class="row">
+              		Created:    {this.state.data.created}
+              	</div>
+              	<div class="row">
+              		Karma:    {this.state.data.karma}
+              	</div>
+              	<div class="row">
+	              	About:   <span dangerouslySetInnerHTML={{__html: this.state.data.about}} />
+              	</div>
+              </div>
             );
         }
       });
+
+      var author_url = `https://hacker-news.firebaseio.com/v0/user/${getQueryString('id')}.json`;
       ReactDOM.render(
-        <Page url="https://hacker-news.firebaseio.com/v0/topstories.json" />,
+        <Page url={author_url} id={getQueryString('id')} />,
         document.getElementById('page')
       );
+
+      
     </script>
 
   </body>
