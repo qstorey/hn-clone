@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 
     <!-- Custom styles for this template -->
-    <link href="custom.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
 
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -47,7 +47,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Hacker News Clone</a>
+          <a class="navbar-brand" href="#">Author</a>
         </div>
       </div>
     </nav>
@@ -56,83 +56,7 @@
 
     </div>
 
-    <script type="text/babel">
-
-      var Page = React.createClass({
-        getInitialState: function() {
-          return {data: []};
-        },
-        componentDidMount: function() {
-            $.ajax({
-              url: this.props.url,
-              dataType: 'json',
-              cache: false,
-              crossDomain: true,
-              success: function(data) {
-                this.setState({data: data});
-              }.bind(this),
-              error: function(xhr, status, err) {
-                console.error(this.props.url, status, err.toString());
-              }.bind(this)
-            });
-          },
-        render: function() {
-          var posts = this.state.data.map(function(post_id){
-            return (
-              <Post key={post_id} id={post_id} />
-            )
-          });
-          return (
-            <div className="Page">
-              <ul className="media-list">
-                {posts.slice(0,10)}
-              </ul>
-            </div>
-          );
-        }
-      });
-
-      var Post = React.createClass({
-        getInitialState: function() {
-          return {data: {}};
-        },
-        componentDidMount: function() {
-            var post_url = `https://hacker-news.firebaseio.com/v0/item/${this.props.id}.json`;
-            $.ajax({
-              url: post_url,
-              dataType: 'json',
-              cache: false,
-              crossDomain: true,
-              success: function(data) {
-                this.setState({data: data});
-              }.bind(this),
-              error: function(xhr, status, err) {
-                console.error(this.props.data.post_url, status, err.toString());
-              }.bind(this)
-            });
-          },
-        render: function() {
-            var author_url = `author.html?id=${this.state.data.by}`;
-            return (
-                <li className="media">
-                  <div className="media-left">
-                    <a href={this.state.data.url}>
-                      <img src="http://lorempixel.com/100/100/abstract"/>
-                    </a>
-                  </div>
-                  <div className="media-body">
-                    <a href={this.state.data.url}><h4 className="media-heading">{this.state.data.title}</h4></a>
-                      <a href={author_url}>{this.state.data.by}</a>
-                  </div>
-                </li>
-            );
-        }
-      });
-      ReactDOM.render(
-        <Page url="https://hacker-news.firebaseio.com/v0/topstories.json" />,
-        document.getElementById('page')
-      );
-    </script>
+    <script type="text/babel" src="scripts/author.js"></script>
 
   </body>
 </html>
