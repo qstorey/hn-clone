@@ -10,3 +10,26 @@ The purpose of this project is to learn
 - [Bootstrap](http://getbootstrap.com/)
 - [Babel](https://babeljs.io/)
 - [Firebase Hacker News API](https://hacker-news.firebaseio.com/)
+
+## Getting started
+
+Make sure you have [node.js](https://nodejs.org) installed
+
+Install the hn-clone package and its dependencies.
+
+```bash
+npm install
+```
+
+Run the build script
+
+```bash
+npm run build
+# or alternatively the file watching build script
+npm run watch
+```
+
+Server the site at http://localhost:8000
+```bash
+npm run serve
+```
