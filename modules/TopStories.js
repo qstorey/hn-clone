@@ -20,7 +20,7 @@ var Post = React.createClass({
       });
     },
   render: function() {
-    var author_url = `author.html?id=${this.state.data.by}`;
+    var author_url = `/author/${this.state.data.by}`;
     return (
         <li className="media">
           <div className="media-left">

@@ -4,7 +4,7 @@
   "description": "A Hacker News clone",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --inline --content-base ."
+    "start": "webpack-dev-server --inline --content-base . --history-api-fallback"
   },
   "author": "Quiran Storey",
   "license": "MIT",
